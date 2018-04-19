@@ -1,0 +1,321 @@
+[
+  {
+    "type": "sound_sensor_value",
+    "message0": "声音传感器 %1 的值",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "sound_port_value",
+        "options": [
+          [
+            "端口1",
+            "1"
+          ],
+          [
+            "端口2",
+            "2"
+          ],
+          [
+            "端口3",
+            "3"
+          ]
+        ]
+      }
+    ],
+    "inputsInline": false,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 180,
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "option_xiaolian",
+    "message0": "笑脸",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#FF658E",
+    "tooltip": "笑脸",
+    "helpUrl": ""
+  },
+  {
+    "type": "option_jvsang",
+    "message0": "沮丧",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#FF658E",
+    "tooltip": "沮丧",
+    "helpUrl": ""
+  },
+  {
+    "type": "option_xiangshang",
+    "message0": "向上箭头",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#FF658E",
+    "tooltip": "向上箭头",
+    "helpUrl": ""
+  },
+  {
+    "type": "option_xiangxia",
+    "message0": "向下箭头",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#FF658E",
+    "tooltip": "向下箭头",
+    "helpUrl": ""
+  },
+  {
+    "type": "option_xiangzuo",
+    "message0": "向左箭头",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#FF658E",
+    "tooltip": "向左箭头",
+    "helpUrl": ""
+  },
+  {
+    "type": "option_xiangyou",
+    "message0": "向右箭头",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#FF658E",
+    "tooltip": "向右箭头",
+    "helpUrl": ""
+  },
+  {
+    "type": "option_huangse",
+    "message0": "彩色灯黄色",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#FF658E",
+    "tooltip": "彩色灯黄色",
+    "helpUrl": ""
+  },
+  {
+    "type": "option_lanse",
+    "message0": "彩色灯蓝色",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#FF658E",
+    "tooltip": "彩色灯蓝色",
+    "helpUrl": ""
+  },
+  {
+    "type": "option_lvse",
+    "message0": "彩色灯绿色",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#FF658E",
+    "tooltip": "彩色灯绿色",
+    "helpUrl": ""
+  },
+  {
+    "type": "option_hongse",
+    "message0": "彩色灯红色",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#FF658E",
+    "tooltip": "彩色灯红色",
+    "helpUrl": ""
+  },
+  {
+    "type": "option_zise",
+    "message0": "彩色灯资色",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#FF658E",
+    "tooltip": "彩色灯紫色",
+    "helpUrl": ""
+  },
+  {
+    "type": "option_baise",
+    "message0": "彩色灯白色",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#FF658E",
+    "tooltip": "彩色灯白色",
+    "helpUrl": ""
+  },
+  {
+    "type": "option_fense",
+    "message0": "彩色灯粉色",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#FF658E",
+    "tooltip": "彩色灯粉色",
+    "helpUrl": ""
+  },
+  {
+    "type": "move_go_back_time",
+    "message0": "运动 %1 速度 %2 时长 %3 秒",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "go_or_back",
+        "options": [
+          [
+            "向前\u2191",
+            "1"
+          ],
+          [
+            "向后\u2193",
+            "2"
+          ]
+        ]
+      },
+      {
+        "type": "field_number",
+        "name": "move_speed",
+        "value": 100,
+        "min": 0,
+        "max": 100
+      },
+      {
+        "type": "field_number",
+        "name": "move_time",
+        "value": 1
+      }
+    ],
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#30DACC",
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "move_clockwise",
+    "message0": "方向 %1 速度 %2 时长 %3 秒",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "go_or_back",
+        "options": [
+          [
+            "顺时针\u21BB",
+            "1"
+          ],
+          [
+            "逆时针\u21BA",
+            "2"
+          ]
+        ]
+      },
+      {
+        "type": "field_number",
+        "name": "move_speed",
+        "value": 100,
+        "min": 0,
+        "max": 100
+      },
+      {
+        "type": "field_number",
+        "name": "move_time",
+        "value": 1
+      }
+    ],
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#30DACC",
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "move_go_back",
+    "message0": "运动 %1 速度 %2",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "go_or_back",
+        "options": [
+          [
+            "向前\u2191",
+            "1"
+          ],
+          [
+            "向后\u2193",
+            "2"
+          ]
+        ]
+      },
+      {
+        "type": "field_number",
+        "name": "move_speed",
+        "value": 100,
+        "min": 0,
+        "max": 100
+      }
+    ],
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#30DACC",
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "move_direction",
+    "message0": "方向 %1 速度 %2",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "go_or_back",
+        "options": [
+          [
+            "左转\u2190",
+            "1"
+          ],
+          [
+            "右转\u2192",
+            "2"
+          ]
+        ]
+      },
+      {
+        "type": "field_number",
+        "name": "move_speed",
+        "value": 100,
+        "min": 0,
+        "max": 100
+      }
+    ],
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#30DACC",
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "move_stop",
+    "message0": "停止运动",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#30DACC",
+    "tooltip": "停止运动",
+    "helpUrl": ""
+  },
+
+  {
+    "type": "control_wait",
+    "message0": "等待 %1 秒",
+    "args0": [
+      {
+        "type": "field_number",
+        "name": "control_time",
+        "value": 1
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#04B2FF",
+    "tooltip": "",
+    "helpUrl": ""
+  }
+
+
+
+
+]

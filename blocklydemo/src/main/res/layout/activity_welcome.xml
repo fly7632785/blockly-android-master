@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/wel_bg"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:src="@mipmap/wel_car" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginLeft="30dp"
+        android:paddingTop="30dp">
+
+        <ImageView
+            android:id="@+id/control"
+            android:layout_width="170dp"
+            android:layout_height="60dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/wel_control" />
+
+        <ImageView
+            android:id="@+id/create"
+            android:layout_width="170dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/wel_create" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/bluetooth"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="top"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="30dp"
+        android:src="@mipmap/bluetooth" />
+</LinearLayout>

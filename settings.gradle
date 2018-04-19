@@ -1,0 +1,1 @@
+include ':blocklylib-core', ':blocklydemo', ':blocklylib-vertical', ':blocklytest'

@@ -1,0 +1,42 @@
+<!--
+  ~  Copyright  2015 Google Inc. All Rights Reserved.
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~   http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  -->
+
+<resources>
+    <string name="app_name">Blue Monkey</string>
+    <string name="level_1">Level 1</string>
+    <string name="level_2">Level 2</string>
+    <string name="level_3">Level 3</string>
+    <string name="simple_activity_name">Blockly Simple Activtiy</string>
+    <string name="simple_fragment_name">Blockly Simple Fragment</string>
+    <string name="lua_activity_name">Blockly Lua</string>
+    <string name="no_categories_toolbox_activity_name">No Categories Toolbox</string>
+    <string name="always_open_toolbox_activity_name">Always Open Toolbox</string>
+    <string name="dev_activity_name">Blockly Dev Tests</string>
+    <string name="comparison_activity_name">Blockly Web Comparison</string>
+    <string name="split_activity_name">Blockly Split</string>
+    <string name="turtle_activity_name">Blockly Turtle</string>
+    <string name="style_activity_name">Blockly Styles</string>
+    <string name="flyout_activity_name">Blockly Flyouts</string>
+    <string name="flyout_activity_title">Blockly Flyout Demos</string>
+    <string name="split_generate_message">Run the blocks to see them in code!</string>
+
+    <string name="scrollable_menuitem">Scrollable</string>
+    <string name="pinch_zoom_menuitem">Pinch Zoom</string>
+    <string name="log_events_menuitem">Log Events</string>
+
+    <string name="action_demo_android">Android</string>
+    <string name="action_demo_lacey_curves">Lacey Curves</string>
+    <string name="action_demo_paint_strokes">Paint Strokes</string>
+</resources>

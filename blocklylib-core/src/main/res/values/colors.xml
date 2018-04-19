@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="translucent">#00000000</color>
+    <color name="white">#fff</color>
+
+    <color name="blockly_toolbox_bg">#80FFFFFF</color>
+    <color name="blockly_trash_bg">#80808080</color>
+    <color name="blockly_edit_text_bg">#80ffffff</color>
+    <color name="blockly_spinner_dropdown_bg">#ffeeeeee</color>
+    <color name="yellow_light">#FFFFFBF1</color>
+    <color name="yellow">#FFFFF6DE</color>
+    <color name="green">#FF038C81</color>
+    <color name="red">#FFB2153F</color>
+    <color name="blue">#FF09719F</color>
+</resources>

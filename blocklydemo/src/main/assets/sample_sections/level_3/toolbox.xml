@@ -1,0 +1,134 @@
+<!--
+  ~  Copyright  2015 Google Inc. All Rights Reserved.
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~   http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  -->
+
+<toolbox>
+    <category name="Some blocks">
+        <category name="Subcategory">
+            <block type="simple_input_output"></block>
+            <block type="multiple_input_output"></block>
+            <block type="statement_multiple_value_input"></block>
+            <block type="statement_statement_input"></block>
+            <block type="statement_value_input"></block>
+        </category>
+        <block type="statement_no_input"></block>
+        <block type="output_no_input"></block>
+        <block type="statement_no_next"></block>
+    </category>
+    <category name="Loops">
+        <block type="controls_repeat_ext">
+            <value name="TIMES">
+                <shadow type="math_number">
+                    <field name="NUM">10</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="controls_whileUntil">
+            <field name="MODE">UNTIL</field>
+        </block>
+    </category>
+    <category name="Groups">
+        <block type="statement_no_input">
+            <next>
+                <block type="statement_no_input"></block>
+            </next>
+        </block>
+        <block type="simple_input_output">
+            <value name="value">
+                <block type="simple_input_output"></block>
+            </value>
+        </block>
+        <block type="controls_repeat_ext">
+            <value name="TIMES">
+                <shadow type="math_number">
+                    <field name="NUM">10</field>
+                </shadow>
+            </value>
+            <statement name="DO">
+                <block type="statement_no_input"></block>
+            </statement>
+        </block>
+
+        <block type="statement_no_input">
+            <next>
+                <shadow type="statement_no_input"></shadow>
+            </next>
+        </block>
+        <block type="simple_input_output">
+            <value name="value">
+                <shadow type="simple_input_output"></shadow>
+            </value>
+        </block>
+        <block type="controls_repeat_ext">
+            <value name="TIMES">
+                <shadow type="math_number">
+                    <field name="NUM">10</field>
+                </shadow>
+            </value>
+            <statement name="DO">
+                <shadow type="statement_no_input"></shadow>
+            </statement>
+        </block>
+        <block type="controls_if">
+            <value name="IF0">
+                <shadow type="logic_compare">
+                    <field name="OP">EQ</field>
+                    <value name="A">
+                        <shadow type="math_number">
+                            <field name="NUM">0</field>
+                        </shadow>
+                    </value>
+                    <value name="B">
+                        <shadow type="math_number">
+                            <field name="NUM">0</field>
+                        </shadow>
+                    </value>
+                </shadow>
+            </value>
+            <statement name="DO0">
+                <shadow type="statement_value_input">
+                    <value name="value">
+                        <shadow type="math_number">
+                            <field name="NUM">11</field>
+                        </shadow>
+                    </value>
+                </shadow>
+            </statement>
+        </block>
+    </category>
+    <category name="Numbers">
+        <block type="test_number">
+            <field name="NUM">10</field>
+        </block>
+        <block type="test_integer">
+            <field name="NUM">10</field>
+        </block>
+        <block type="test_number_hundredths">
+            <field name="NUM">0.25</field>
+        </block>
+        <block type="test_integer_bounded">
+            <field name="NOTE">60</field>
+        </block>
+    </category>
+    <category name="Images">
+        <block type="image-relative"/>
+        <block type="image-fileuri"/>
+        <block type="image-datauri"/>
+        <block type="image-small"/>
+        <block type="image-large"/>
+        <block type="image-missing"/>
+    </category>
+    <category name="Variables" custom="VARIABLE"/>
+    <category name="Variables" custom="FUNCTIONS"/>
+</toolbox>

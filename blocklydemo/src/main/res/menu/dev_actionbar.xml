@@ -1,0 +1,37 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+    <item android:id="@+id/action_save" android:title="@string/action_save"
+          android:orderInCategory="10" app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_file_download_white_24dp"/>
+    <item android:id="@+id/action_load" android:title="@string/action_load"
+          android:orderInCategory="11" app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_file_upload_white_24dp"/>
+    <item android:id="@+id/action_clear" android:title="@string/action_clear"
+          android:orderInCategory="12" app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_layers_clear_white_24dp"/>
+    <item android:id="@+id/action_run" android:title="@string/action_run"
+          android:orderInCategory="15" app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_play_arrow_white_24dp"/>
+
+    <group android:checkableBehavior="all">
+        <item android:id="@+id/scrollable_menuitem"
+            android:title="@string/scrollable_menuitem" />
+        <item android:id="@+id/pinch_zoom_menuitem"
+            android:title="@string/pinch_zoom_menuitem" />
+    </group>
+    <group android:checkableBehavior="all">
+        <item android:id="@+id/log_events_menuitem"
+            android:title="@string/log_events_menuitem" />
+    </group>
+
+    <item android:id="@+id/action_airstrike" android:title="@string/action_airstrike"
+          android:orderInCategory="90" app:showAsAction="never"/>
+    <item android:id="@+id/action_carpet_bomb" android:title="@string/action_carpet_bomb"
+          android:orderInCategory="91" app:showAsAction="never"/>
+    <item android:id="@+id/action_spaghetti" android:title="@string/action_spaghetti"
+          android:orderInCategory="92" app:showAsAction="never"/>
+    <item android:id="@+id/action_create_variable" android:title="@string/create_variable"
+          android:orderInCategory="93" app:showAsAction="never" />
+
+</menu>
