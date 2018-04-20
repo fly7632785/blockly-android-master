@@ -173,7 +173,12 @@ public class RobotBlocklyActivity extends AbstractBlocklyActivity {
         root.findViewById(R.id.run).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                run();
+                if (BleController.getInstance().isConnected()) {
+                    run();
+                } else {
+                    Toast.makeText(getBaseContext(), "请连接蓝牙", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 

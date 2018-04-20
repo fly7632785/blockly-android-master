@@ -27,20 +27,19 @@ public class RobotWelcomeActivity extends AppCompatActivity {
     private void initView() {
     }
 
-
-    @OnClick({R.id.control,R.id.create,R.id.bluetooth})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.control, R.id.create, R.id.bluetooth})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.control:
 //                if(BleController.getInstance().isConnected()) {
-                    RobotControlActivity.launch(getApplicationContext());
+                RobotControlActivity.launch(getApplicationContext());
 //                }else {
 //                    Toast.makeText(this, "请连接蓝牙", Toast.LENGTH_SHORT).show();
 //                }
                 break;
             case R.id.create:
 //                if(BleController.getInstance().isConnected()) {
-                    RobotBlocklyActivity.launch(getApplicationContext());
+                RobotBlocklyActivity.launch(getApplicationContext());
 //                }else {
 //                    Toast.makeText(this, "请连接蓝牙", Toast.LENGTH_SHORT).show();
 //                }
@@ -50,7 +49,6 @@ public class RobotWelcomeActivity extends AppCompatActivity {
                 break;
         }
     }
-
 
     @Override
     protected void onDestroy() {
