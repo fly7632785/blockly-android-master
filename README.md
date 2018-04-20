@@ -1,3 +1,4 @@
+#### Blockly
 [Blockly][1] is a library for building drag-and-drop visual editors for
 JavaScript and other programming languages.  [Blockly for Android][2] is
 a developer preview of Blockly's editor built with standard Android
@@ -29,3 +30,30 @@ Want to contribute? Great! First, read [our guidelines for contributors][7].
 [5]: https://groups.google.com/forum/#!forum/blockly "Blockly developer forum"
 [6]: https://developers.google.com/blockly/registration "Blockly developer registration form"
 [7]: https://github.com/google/blockly-android/blob/master/CONTRIBUTING.md "Contributor guidelines"
+
+
+#### 基于Android blockly和蓝牙通信的机器人编程APP
+###### 主要功能：
+1、在Android blockly的基础上改造，可以实现编程构建
+
+2、蓝牙连接机器人（自主研发的），通过蓝牙与机器人交互
+
+3、自定义blockly模块，UI自定义
+
+##### 截图
+<img src="shot/ble_welcome.png" width="40%"/>  <img src="shot/ble_connect.png" width="40%"/>
+<img src="shot/ble_control.png" width="40%"/>  <img src="shot/ble_xunji.png" width="40%"/>
+<img src="shot/ble_blockly_yundong.png" width="40%"/>  <img src="shot/ble_blockly_show.png" width="40%"/>
+<img src="shot/ble_blockly_zhixing.png" width="40%"/>
+
+##### 实现原理
+1、蓝牙连接，ble蓝牙连接及其通信，主要在bleutils包下面，其他界面相关实现在robot包下
+
+2、Blockly 自定义模块，[创建生成模块](https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#)，构建完毕生成js和json，json为模块解析构建的样式和类型依据，
+js为执行相关语句的构建，例如 if else的构建。
+
+3、Blockly编程实现，生成js代码，然后放入webview中加载js，特定的蓝牙通信的指令代码实现其js和Android交互，Android进行蓝牙通讯。
+
+4、js与Android通信为JavaBridge线程，可阻塞。（如果在需要同步阻塞等待设备传回消息，可以参考ShowInterface的sleep方法，循环等待）
+
+5、对于ui的改造，在blocklylib-core中也有，具体可参看源码
