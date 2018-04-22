@@ -30,6 +30,7 @@ public class ShowInterface extends Object {
     @JavascriptInterface
     public synchronized void command(String msg) {
         Handler handler = new Handler(Looper.getMainLooper());
+        System.out.println("thread" + Thread.currentThread().toString());
         final String command = getOptionCommand(msg);
         handler.post(new Runnable() {
             @Override

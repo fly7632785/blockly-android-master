@@ -31,6 +31,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.google.blockly.android.codegen.CodeGenerationRequest;
@@ -114,6 +115,7 @@ public abstract class AbstractBlocklyActivity extends AppCompatActivity {
     /**
      * Handles the processing of Blockly's standard toolbar / actionbar menu items for this
      * workspace.
+     *
      * @param item One of Blockly's standard toolbar / actionbar menu items.
      * @return True if the item is recognized and the event was consumed. Otherwise false.
      */
@@ -156,6 +158,7 @@ public abstract class AbstractBlocklyActivity extends AppCompatActivity {
 
     /**
      * Opens or closes the navigation drawer.
+     *
      * @param open Opens the navigation drawer if true and closes it if false.
      */
     public void setNavDrawerOpened(boolean open) {
@@ -244,7 +247,11 @@ public abstract class AbstractBlocklyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //隐藏状态栏
+        //定义全屏参数
+        int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        //设置当前窗体为全屏显示
+        getWindow().setFlags(flag, flag);
         onCreateActivityRootView();
         mBlocklyActivityHelper = onCreateActivityHelper();
         if (mBlocklyActivityHelper == null) {
@@ -270,14 +277,18 @@ public abstract class AbstractBlocklyActivity extends AppCompatActivity {
         return new BlocklyActivityHelper(this, this.getSupportFragmentManager());
     }
 
-    /** Propagate lifecycle event to BlocklyActivityHelper. */
+    /**
+     * Propagate lifecycle event to BlocklyActivityHelper.
+     */
     @Override
     protected void onStart() {
         super.onStart();
         mBlocklyActivityHelper.onStart();
     }
 
-    /** Propagate lifecycle event to BlocklyActivityHelper. */
+    /**
+     * Propagate lifecycle event to BlocklyActivityHelper.
+     */
     @Override
     protected void onPause() {
         super.onPause();
@@ -285,7 +296,9 @@ public abstract class AbstractBlocklyActivity extends AppCompatActivity {
         onAutosave();
     }
 
-    /** Propagate lifecycle event to BlocklyActivityHelper. */
+    /**
+     * Propagate lifecycle event to BlocklyActivityHelper.
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -302,14 +315,18 @@ public abstract class AbstractBlocklyActivity extends AppCompatActivity {
         }
     }
 
-    /** Propagate lifecycle event to BlocklyActivityHelper. */
+    /**
+     * Propagate lifecycle event to BlocklyActivityHelper.
+     */
     @Override
     protected void onStop() {
         super.onStop();
         mBlocklyActivityHelper.onStop();
     }
 
-    /** Propagate lifecycle event to BlocklyActivityHelper. */
+    /**
+     * Propagate lifecycle event to BlocklyActivityHelper.
+     */
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -317,7 +334,6 @@ public abstract class AbstractBlocklyActivity extends AppCompatActivity {
     }
 
     /**
-     *
      * Returns true if the app should proceed to restore the blockly state from the
      * {@code savedInstanceState} Bundle or the {@link #onAutoload() auto save} file. By default, it
      * always returns true, but Activity developers can override this method to add conditional
@@ -383,7 +399,8 @@ public abstract class AbstractBlocklyActivity extends AppCompatActivity {
      * Hook for subclasses to initialize a new blank workspace. Initialization may include
      * configuring default variables or other setup.
      */
-    protected void onInitBlankWorkspace() {}
+    protected void onInitBlankWorkspace() {
+    }
 
     /**
      * @return The id of the menu resource used to populate the {@link ActionBar}.
@@ -488,7 +505,7 @@ public abstract class AbstractBlocklyActivity extends AppCompatActivity {
 
     /**
      * @return The path to the saved workspace file on the local device. By default,
-     *         "workspace.xml".
+     * "workspace.xml".
      */
     @NonNull
     protected String getWorkspaceSavePath() {
@@ -497,7 +514,7 @@ public abstract class AbstractBlocklyActivity extends AppCompatActivity {
 
     /**
      * @return The path to the automatically saved workspace file on the local device. By default,
-     *         "autosave_workspace.xml".
+     * "autosave_workspace.xml".
      */
     @NonNull
     protected String getWorkspaceAutosavePath() {
@@ -653,7 +670,7 @@ public abstract class AbstractBlocklyActivity extends AppCompatActivity {
      * Reloads the block definitions, including extensions and mutators. Calls
      * {@link #getBlockDefinitionsJsonPaths()} and {@link #configureBlockExtensions()}.
      *
-     * @throws IOException If there is a fundamental problem with the input.
+     * @throws IOException           If there is a fundamental problem with the input.
      * @throws BlockLoadingException If the definition is malformed.
      */
     protected void resetBlockFactory() {
@@ -669,7 +686,7 @@ public abstract class AbstractBlocklyActivity extends AppCompatActivity {
 
     /**
      * @return True if the navigation menu was closed and the back event should be consumed.
-     *         Otherwise false.
+     * Otherwise false.
      */
     protected boolean onBackToCloseNavMenu() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {

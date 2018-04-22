@@ -15,11 +15,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -34,6 +34,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * created by jafir on 2018/4/9
@@ -43,6 +44,10 @@ public class RobotBleConnectActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_ACCESS_COARSE_LOCATION = 1;
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
+    @BindView(R.id.text)
+    TextView text;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     private List devices = new ArrayList();
     private DeviceAdapter adapter;
     private BleController mBleController;
@@ -51,40 +56,56 @@ public class RobotBleConnectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        //设置当前窗体为全屏显示
+        getWindow().setFlags(flag, flag);
         setContentView(R.layout.activity_connect);
         ButterKnife.bind(this);
         initView();
     }
 
     private void initView() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setTitle("");
         checkGps();
         mBleController = BleController.getInstance().initble(this);
         initReycler();
         scanDevices(true);
     }
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        new MenuInflater(this).inflate(R.menu.refresh, menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        new MenuInflater(this).inflate(R.menu.refresh, menu);
-        return super.onCreateOptionsMenu(menu);
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (item.getItemId() == android.R.id.home) {
+//            finish();
+//            return true;
+//        } else if (item.getItemId() == R.id.action_refresh) {
+//
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
+
+
+    @OnClick(R.id.refresh)
+    public void onRefresh() {
+        adapter.getData().clear();
+        adapter.notifyDataSetChanged();
+        if (mBleController.isScanning()) {
+            scanDevices(false);
+        }
+        scanDevices(true);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        } else if (item.getItemId() == R.id.action_refresh) {
-            adapter.getData().clear();
-            adapter.notifyDataSetChanged();
-            if (mBleController.isScanning()) {
-                scanDevices(false);
-            }
-            scanDevices(true);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    @OnClick(R.id.back)
+    public void onback() {
+        finish();
     }
 
     /**
@@ -187,9 +208,17 @@ public class RobotBleConnectActivity extends AppCompatActivity {
      * @param enable
      */
     private void scanDevices(final boolean enable) {
+        text.setText("正在搜索中...");
         mBleController.ScanBle(enable, new ScanCallback() {
             @Override
             public void onSuccess() {
+                if (!adapter.getData().isEmpty()) {
+                    text.setText("没有发现设备");
+                } else if (mBleController.isConnected()) {
+                    text.setText("设备已连接");
+                } else {
+                    text.setText("正在搜索中...");
+                }
             }
 
             @Override

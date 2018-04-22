@@ -50,7 +50,7 @@
                     <View
                         android:layout_width="0.1dp"
                         android:layout_height="match_parent"
-                        android:background="@color/colorPrimary" />
+                        android:background="@mipmap/shu" />
 
                     <TextView
                         android:id="@+id/control"
@@ -66,7 +66,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"
-                    android:background="@color/colorPrimary" />
+                    android:background="@mipmap/heng" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -85,7 +85,7 @@
                     <View
                         android:layout_width="0.1dp"
                         android:layout_height="match_parent"
-                        android:background="@color/colorPrimary" />
+                        android:background="@mipmap/shu" />
 
                     <TextView
                         android:id="@+id/prevent_down"
@@ -142,41 +142,50 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <Button
+                <ImageView
                     android:id="@+id/go"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:text="前" />
+                    android:background="@drawable/select_up_bg"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    />
 
                 <LinearLayout
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
 
-                    <Button
+                    <ImageView
                         android:id="@+id/left"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:text="左" />
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/select_left_bg"
+                         />
 
-                    <Button
+                    <ImageView
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
                         android:id="@+id/stop"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/select_stop_bg"
                         android:text="停" />
 
-                    <Button
+                    <ImageView
                         android:id="@+id/right"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_width="50dp"
+                        android:background="@drawable/select_right_bg"
+                        android:layout_height="50dp"
                         android:text="右" />
                 </LinearLayout>
 
-                <Button
+                <ImageView
                     android:id="@+id/back"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/select_down_bg"
                     android:text="后" />
 
             </LinearLayout>

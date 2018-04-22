@@ -9,6 +9,7 @@
     <color name="blockly_spinner_dropdown_bg">#ffeeeeee</color>
     <color name="yellow_light">#FFFFFBF1</color>
     <color name="yellow">#FFFFF6DE</color>
+    <color name="yellow_connect">#FFCD4F</color>
     <color name="green">#FF038C81</color>
     <color name="red">#FFB2153F</color>
     <color name="blue">#FF09719F</color>

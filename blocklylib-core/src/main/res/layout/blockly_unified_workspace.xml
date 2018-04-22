@@ -27,8 +27,8 @@
 
     <ImageView
         android:id="@+id/back"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
         android:background="#FFFFB94A"
         android:padding="10dp"
         android:src="@mipmap/big_back" />
@@ -36,7 +36,7 @@
     <fragment
         android:id="@id/blockly_categories"
         android:name="com.google.blockly.android.CategorySelectorFragment"
-        android:layout_width="80dp"
+        android:layout_width="90dp"
         android:layout_height="match_parent"
         android:layout_below="@+id/back"
         android:layout_alignParentStart="true"
@@ -70,42 +70,47 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         android:layout_alignParentTop="true"
         android:orientation="vertical">
 
         <ImageButton
             android:id="@+id/blockly_zoom_in_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="5dp"
             android:layout_gravity="center_horizontal"
+            android:scaleType="fitXY"
             android:background="@color/translucent"
-            android:padding="2dp"
-            android:src="@drawable/zoom_in" />
+            android:src="@drawable/bigger" />
 
         <ImageButton
             android:id="@+id/blockly_zoom_out_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="5dp"
+            android:scaleType="fitXY"
             android:layout_gravity="center_horizontal"
             android:background="@color/translucent"
-            android:padding="2dp"
-            android:src="@drawable/zoom_out" />
+            android:src="@drawable/smaller" />
 
         <ImageButton
             android:id="@+id/blockly_center_view_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="5dp"
             android:layout_gravity="center_horizontal"
             android:background="@color/translucent"
-            android:padding="2dp"
-            android:src="@drawable/reset_view" />
+            android:scaleType="fitXY"
+            android:src="@drawable/center" />
 
         <com.google.blockly.android.ui.TrashCanView
             android:id="@+id/blockly_trash_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@color/translucent"
-            android:padding="2dp" />
+            android:padding="5dp" />
     </LinearLayout>
 </RelativeLayout>

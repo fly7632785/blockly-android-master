@@ -172,6 +172,7 @@
 
         </activity>
         <activity android:name=".robot.RobotBleConnectActivity"
+            android:theme="@style/ActTheme"
             android:screenOrientation="landscape"
             >
 

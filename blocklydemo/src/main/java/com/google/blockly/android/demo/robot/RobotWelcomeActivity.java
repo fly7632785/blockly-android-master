@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.google.blockly.android.demo.R;
 import com.google.blockly.android.demo.bleutils.BleController;
@@ -19,6 +20,9 @@ public class RobotWelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        //设置当前窗体为全屏显示
+        getWindow().setFlags(flag, flag);
         setContentView(R.layout.activity_welcome);
         ButterKnife.bind(this);
         initView();

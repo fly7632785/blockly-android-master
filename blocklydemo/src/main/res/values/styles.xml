@@ -22,7 +22,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="ActTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="ActTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -33,4 +33,10 @@
         <item name="blockTextSize">34sp</item>
         <item name="android:textColorPrimary">@color/styleDemoTextPrimary</item>
     </style>
+
+    <style name="ToolbarTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="actionMenuTextColor">@color/white</item> <!--  敲定颜色-->
+        <!--<item name="android:textSize">18sp</item> &lt;!&ndash;  搞掂字体大小&ndash;&gt;-->
+    </style>
+
 </resources>

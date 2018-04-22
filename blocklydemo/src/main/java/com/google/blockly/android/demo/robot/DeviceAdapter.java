@@ -2,6 +2,7 @@ package com.google.blockly.android.demo.robot;
 
 import android.bluetooth.BluetoothDevice;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -16,13 +17,19 @@ import java.util.List;
 public class DeviceAdapter extends BaseQuickAdapter<BluetoothDevice, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, BluetoothDevice item) {
-        if(item.getAddress().equals(BleController.getInstance().getConnectedAdress()) && BleController.getInstance().isConnected()){
-            helper.setText(R.id.address, "地址："+item.getAddress()+"(已连接)");
-        }else {
-            helper.setText(R.id.address, "地址："+item.getAddress());
+        if (!TextUtils.isEmpty(item.getName())) {
+            if (item.getAddress().equals(BleController.getInstance().getConnectedAdress()) && BleController.getInstance().isConnected()) {
+                helper.setText(R.id.name, item.getName() + "(已连接)");
+            } else {
+                helper.setText(R.id.name, "" + item.getName());
+            }
+        } else {
+            if (item.getAddress().equals(BleController.getInstance().getConnectedAdress()) && BleController.getInstance().isConnected()) {
+                helper.setText(R.id.name, item.getAddress() + "(已连接)");
+            } else {
+                helper.setText(R.id.name, "" + item.getAddress());
+            }
         }
-        helper.setText(R.id.name, "名字："+item.getName());
-
     }
 
     private static final double A_Value = 60; // A - 发射端和接收端相隔1米时的信号强度
