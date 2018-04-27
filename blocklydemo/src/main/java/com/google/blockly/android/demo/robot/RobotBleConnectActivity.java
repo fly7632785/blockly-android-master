@@ -213,11 +213,11 @@ public class RobotBleConnectActivity extends AppCompatActivity {
             @Override
             public void onSuccess() {
                 if (!adapter.getData().isEmpty()) {
-                    text.setText("没有发现设备");
+                    text.setText("已经搜索到设备");
                 } else if (mBleController.isConnected()) {
                     text.setText("设备已连接");
                 } else {
-                    text.setText("正在搜索中...");
+                    text.setText("没有可连接的设备");
                 }
             }
 

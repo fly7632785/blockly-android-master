@@ -42,7 +42,6 @@ import com.google.blockly.android.demo.javainterface.ControlInterface;
 import com.google.blockly.android.demo.javainterface.MoveInterface;
 import com.google.blockly.android.demo.javainterface.ShowInterface;
 import com.google.blockly.model.DefaultBlocks;
-import com.google.blockly.util.HexUtil;
 import com.google.blockly.util.JavascriptUtil;
 
 import java.util.Arrays;
@@ -173,11 +172,11 @@ public class RobotBlocklyActivity extends AbstractBlocklyActivity {
         root.findViewById(R.id.run).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (BleController.getInstance().isConnected()) {
+                if (BleController.getInstance().isConnected()) {
                     run();
-//                } else {
-//                    Toast.makeText(getBaseContext(), "请连接蓝牙", Toast.LENGTH_SHORT).show();
-//                }
+                } else {
+                    Toast.makeText(getBaseContext(), "请连接蓝牙", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -201,7 +200,6 @@ public class RobotBlocklyActivity extends AbstractBlocklyActivity {
             @Override
             public void onReceiver(byte[] value) {
                 Log.e("response", new String(value));
-                Log.e("response", HexUtil.bytesToHexString(value));
                 if (listener != null) {
                     listener.onReceive(new String(value));
                 }

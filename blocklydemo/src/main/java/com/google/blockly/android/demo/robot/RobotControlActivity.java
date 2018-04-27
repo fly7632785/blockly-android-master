@@ -81,7 +81,6 @@ public class RobotControlActivity extends AppCompatActivity {
             @Override
             public void onReceiver(byte[] value) {
                 Log.e("response", new String(value));
-                Log.e("response", HexUtil.bytesToHexString(value));
             }
         });
         control.setSelected(true);

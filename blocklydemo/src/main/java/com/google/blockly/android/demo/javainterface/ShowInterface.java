@@ -44,7 +44,7 @@ public class ShowInterface extends Object {
         switch (msg) {
             case "option_xiaolian":
                 return CommandConstant.OPTION_XIAOLIAN;
-            case "option_jusang":
+            case "option_jvsang":
                 return CommandConstant.OPTION_JVSANG;
             case "option_xiangshang":
                 return CommandConstant.OPTION_XIANGSHANG;

@@ -21,7 +21,6 @@ import com.google.blockly.android.demo.bleutils.callback.OnReceiverCallback;
 import com.google.blockly.android.demo.bleutils.callback.OnWriteCallback;
 import com.google.blockly.android.demo.bleutils.callback.ScanCallback;
 import com.google.blockly.android.demo.bleutils.request.ReceiverRequestQueue;
-import com.google.blockly.util.HexUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -234,7 +233,6 @@ public class BleController {
         boolean b = mBleGatt.writeCharacteristic(mBleGattCharacteristic);
 
         Log.e(TAG, "send:" + b + "data：" + value);
-        Log.e(TAG, "send:" + b + "data：" + new String(HexUtil.hexStringToBytes(value)));
     }
 
     /**

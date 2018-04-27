@@ -20,13 +20,17 @@ public class DeviceAdapter extends BaseQuickAdapter<BluetoothDevice, BaseViewHol
         if (!TextUtils.isEmpty(item.getName())) {
             if (item.getAddress().equals(BleController.getInstance().getConnectedAdress()) && BleController.getInstance().isConnected()) {
                 helper.setText(R.id.name, item.getName() + "(已连接)");
+                helper.itemView.setBackgroundResource(R.color.selected_color);
             } else {
+                helper.itemView.setBackgroundResource(R.color.white);
                 helper.setText(R.id.name, "" + item.getName());
             }
         } else {
             if (item.getAddress().equals(BleController.getInstance().getConnectedAdress()) && BleController.getInstance().isConnected()) {
                 helper.setText(R.id.name, item.getAddress() + "(已连接)");
+                helper.itemView.setBackgroundResource(R.color.selected_color);
             } else {
+                helper.itemView.setBackgroundResource(R.color.white);
                 helper.setText(R.id.name, "" + item.getAddress());
             }
         }

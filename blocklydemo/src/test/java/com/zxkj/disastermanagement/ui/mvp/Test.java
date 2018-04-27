@@ -9,7 +9,7 @@ public class Test {
     @org.junit.Test
     public static void main(String[]s){
 
-        byte[]bb = "D101FFFF".getBytes();
+        byte[]bb = "".getBytes();
         byte[] bbb = HexUtil.hexStringToBytes("D101FFFF");
         System.out.print(new String(bb));
         System.out.print(new String(bbb));

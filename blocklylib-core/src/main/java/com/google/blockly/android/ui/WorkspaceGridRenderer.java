@@ -29,7 +29,7 @@ import android.graphics.Shader;
 class WorkspaceGridRenderer {
     // Constants for drawing the coordinate grid.
     private static final int GRID_SPACING = 48;
-    private static final int GRID_COLOR = 0xffa0a0a0;
+    private static final int GRID_COLOR = 0xffeeeeee;
     private static final int GRID_RADIUS = 2;
 
     // Fields for grid drawing.

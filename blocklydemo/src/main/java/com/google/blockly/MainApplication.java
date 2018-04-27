@@ -8,6 +8,7 @@ import com.polidea.rxandroidble2.RxBleClient;
 import com.polidea.rxandroidble2.RxBleConnection;
 import com.polidea.rxandroidble2.RxBleDevice;
 import com.polidea.rxandroidble2.internal.RxBleLog;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import io.reactivex.Observable;
 
@@ -39,6 +40,7 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        CrashReport.initCrashReport(getApplicationContext(), "0638dbcde3", true);
         ToastUtils.register(this);
         rxBleClient = RxBleClient.create(this);
         RxBleClient.setLogLevel(RxBleLog.VERBOSE);

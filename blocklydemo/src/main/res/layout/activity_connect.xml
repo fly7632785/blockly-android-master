@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
+        android:elevation="3dp"
         android:layout_height="48dp"
         app:title=""
         android:background="@color/yellow_connect">
@@ -63,8 +65,8 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:scaleType="fitXY"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
             android:src="@mipmap/car" />
     </LinearLayout>
     </LinearLayout>
