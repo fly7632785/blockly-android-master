@@ -76,6 +76,14 @@ Blockly.JavaScript['option_xiangyou'] = function(block) {
   var code = 'option.command(\'option_xiangyou\');\n';
   return code;
 };
+Blockly.JavaScript['option_close_rgb'] = function(block) {
+  var code = 'option.command(\'option_close_rgb\');\n';
+  return code;
+};
+Blockly.JavaScript['option_close_dianzhen'] = function(block) {
+  var code = 'option.command(\'option_close_dianzhen\');\n';
+  return code;
+};
 
 
 

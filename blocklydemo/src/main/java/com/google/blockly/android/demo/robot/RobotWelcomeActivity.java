@@ -37,11 +37,11 @@ public class RobotWelcomeActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.control:
-//                if (BleController.getInstance().isConnected()) {
+                if (BleController.getInstance().isConnected()) {
                     RobotControlActivity.launch(this);
-//                } else {
-//                    Toast.makeText(this, "请连接蓝牙", Toast.LENGTH_SHORT).show();
-//                }
+                } else {
+                    Toast.makeText(this, "请连接蓝牙", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.create:
 //                if(BleController.getInstance().isConnected()) {

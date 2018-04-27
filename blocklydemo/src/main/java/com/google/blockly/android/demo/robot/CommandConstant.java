@@ -20,10 +20,11 @@ public class CommandConstant {
     public final static String FANGDIELUO_START = "D401FFFF";
     public final static String FANGDIELUO_END = "D402FFFF";
 
-    public final static String GOBACKTIME = "F1%02d%s%d";
-    public final static String CLOCKWISE = "F2%02d%s%d";
+    public final static String GOBACKTIME = "F1%02d%s%s";
+    public final static String CLOCKWISE = "F2%02d%s%s";
     public final static String GOBACK = "F3%02d%sFF";
     public final static String ZHUANWAN = "F4%02d%sFF";
+    public final static String MOVE_STOP = "F500FFFF";
 
 
     public final static String OPTION_XIAOLIAN = "E101FFFF";
@@ -35,10 +36,12 @@ public class CommandConstant {
     public final static String OPTION_HUANGSE = "E107FFFF";
     public final static String OPTION_LANSE = "E108FFFF";
     public final static String OPTION_LVSE = "E109FFFF";
-    public final static String OPTION_HONGSE = "E1010FFFF";
-    public final static String OPTION_ZISE = "E1011FFFF";
-    public final static String OPTION_BAISE = "E1012FFFF";
-    public final static String OPTION_FENSESE = "E1013FFFF";
+    public final static String OPTION_HONGSE = "E110FFFF";
+    public final static String OPTION_ZISE = "E111FFFF";
+    public final static String OPTION_BAISE = "E112FFFF";
+    public final static String OPTION_FENSESE = "E113FFFF";
+    public final static String OPTION_CLOSE_AGB = "E114FFFF";
+    public final static String OPTION_CLOSE_DIANZHEN ="E115FFFF";
 
 
 

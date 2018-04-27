@@ -84,6 +84,24 @@
     "helpUrl": ""
   },
   {
+    "type": "option_close_rgb",
+    "message0": "熄灭RGB",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#FF658E",
+    "tooltip": "熄灭RGB",
+    "helpUrl": ""
+  },
+  {
+    "type": "option_close_dianzhen",
+    "message0": "熄灭点阵",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#FF658E",
+    "tooltip": "熄灭点阵",
+    "helpUrl": ""
+  },
+  {
     "type": "option_huangse",
     "message0": "彩色灯黄色",
     "previousStatement": null,
@@ -174,7 +192,9 @@
       {
         "type": "field_number",
         "name": "move_time",
-        "value": 1
+        "value": 1,
+        "min": 1,
+        "max": 255
       }
     ],
     "inputsInline": true,
@@ -206,13 +226,15 @@
         "type": "field_number",
         "name": "move_speed",
         "value": 100,
-        "min": 0,
+        "min": 1,
         "max": 100
       },
       {
         "type": "field_number",
         "name": "move_time",
-        "value": 1
+        "value": 1,
+        "min": 1,
+        "max": 255
       }
     ],
     "inputsInline": true,

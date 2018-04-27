@@ -28,13 +28,10 @@ public class MoveInterface extends Object {
     @JavascriptInterface
     public synchronized void goBackTime(final int goBack, final int speed, final int time) {
         Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                String command = String.format(CommandConstant.GOBACKTIME, goBack, getFormatSpeed(speed), time);
-                Log.e("command", command);
-                activity.Write(command);
-            }
+        handler.post(() -> {
+            String command = String.format(CommandConstant.GOBACKTIME, goBack, getFormatSpeed(speed), getFormatTime(time));
+            Log.e("command", command);
+            activity.Write(command);
         });
     }
 
@@ -44,13 +41,10 @@ public class MoveInterface extends Object {
     @JavascriptInterface
     public synchronized void goBack(final int goBack, final int speed) {
         Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                String command = String.format(CommandConstant.GOBACK, goBack, getFormatSpeed(speed));
-                Log.e("command", command);
-                activity.Write(command);
-            }
+        handler.post(() -> {
+            String command = String.format(CommandConstant.GOBACK, goBack, getFormatSpeed(speed));
+            Log.e("command", command);
+            activity.Write(command);
         });
     }
 
@@ -60,13 +54,10 @@ public class MoveInterface extends Object {
     @JavascriptInterface
     public synchronized void clockwise(final int clockwise, final int speed, final int time) {
         Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                String command = String.format(CommandConstant.CLOCKWISE, clockwise, getFormatSpeed(speed), time);
-                Log.e("command", command);
-                activity.Write(command);
-            }
+        handler.post(() -> {
+            String command = String.format(CommandConstant.CLOCKWISE, clockwise, getFormatSpeed(speed), getFormatTime(time));
+            Log.e("command", command);
+            activity.Write(command);
         });
     }
 
@@ -80,18 +71,30 @@ public class MoveInterface extends Object {
     }
 
     /**
+     * 01 - 255
+     * 01 - FF
+     *
+     * @param time
+     * @return
+     */
+    private String getFormatTime(int time) {
+        String string = Integer.toHexString(time).toUpperCase();
+        if (string.length() == 1) {
+            string = "0" + string;
+        }
+        return string;
+    }
+
+    /**
      * 顺时针逆时针  速度
      */
     @JavascriptInterface
     public synchronized void direction(final int clockwise, final int speed) {
         Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                String command = String.format(CommandConstant.ZHUANWAN, clockwise, getFormatSpeed(speed));
-                Log.e("command", command);
-                activity.Write(command);
-            }
+        handler.post(() -> {
+            String command = String.format(CommandConstant.ZHUANWAN, clockwise, getFormatSpeed(speed));
+            Log.e("command", command);
+            activity.Write(command);
         });
     }
 
@@ -101,13 +104,7 @@ public class MoveInterface extends Object {
     @JavascriptInterface
     public synchronized void stop() {
         Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                Log.e("command", CommandConstant.STOP);
-                activity.Write(CommandConstant.STOP);
-            }
-        });
+        handler.post(() -> activity.Write(CommandConstant.MOVE_STOP));
     }
 
 }

@@ -16,7 +16,6 @@ import com.google.blockly.android.demo.R;
 import com.google.blockly.android.demo.bleutils.BleController;
 import com.google.blockly.android.demo.bleutils.callback.OnReceiverCallback;
 import com.google.blockly.android.demo.bleutils.callback.OnWriteCallback;
-import com.google.blockly.util.HexUtil;
 import com.google.blockly.util.ToastUtils;
 
 import butterknife.BindView;
@@ -29,6 +28,7 @@ import butterknife.OnClick;
 public class RobotControlActivity extends AppCompatActivity {
     private static final String TAG = "RobotControlActivity";
     private BleController mBleController;
+    private long lastTime;
 
     public static void launch(Context context) {
         context.startActivity(new Intent(context, RobotControlActivity.class));
@@ -159,7 +159,14 @@ public class RobotControlActivity extends AppCompatActivity {
     @OnClick(R.id.start_and_pause)
     public void startAndPause(View view) {
         //selected   true 为暂停  false为开始
-        view.setSelected(!view.isSelected());
+        if (System.currentTimeMillis() - lastTime < 1000) {
+            return;
+        }
+        lastTime = System.currentTimeMillis();
+        if (mode != Mode.Control) {
+            view.setSelected(!view.isSelected());
+        }
+
         if (view.isSelected()) {
             //开始
             switch (mode) {
@@ -197,6 +204,7 @@ public class RobotControlActivity extends AppCompatActivity {
 
     @SuppressLint("CheckResult")
     private void sendCommand(String command) {
+        Log.e(TAG, "send data：" + command);
         if (mBleController.isConnected()) {
             mBleController.WriteBuffer(command, new OnWriteCallback() {
                 @Override

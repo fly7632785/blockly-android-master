@@ -15,7 +15,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class ShowInterface extends Object {
 
-
     private RobotBlocklyActivity activity;
     private String returnStr;
 
@@ -68,6 +67,10 @@ public class ShowInterface extends Object {
                 return CommandConstant.OPTION_BAISE;
             case "option_fense":
                 return CommandConstant.OPTION_FENSESE;
+            case "option_close_rgb":
+                return CommandConstant.OPTION_CLOSE_AGB;
+            case "option_close_dianzhen":
+                return CommandConstant.OPTION_CLOSE_DIANZHEN;
         }
         return "";
     }

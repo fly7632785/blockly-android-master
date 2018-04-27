@@ -16,7 +16,6 @@
 package com.google.blockly.android.demo.robot;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
@@ -36,7 +35,6 @@ import com.google.blockly.android.codegen.CodeGenerationRequest;
 import com.google.blockly.android.control.BlocklyController;
 import com.google.blockly.android.demo.R;
 import com.google.blockly.android.demo.bleutils.BleController;
-import com.google.blockly.android.demo.bleutils.callback.OnReceiverCallback;
 import com.google.blockly.android.demo.bleutils.callback.OnWriteCallback;
 import com.google.blockly.android.demo.javainterface.ControlInterface;
 import com.google.blockly.android.demo.javainterface.MoveInterface;
@@ -162,21 +160,13 @@ public class RobotBlocklyActivity extends AbstractBlocklyActivity {
     protected View onCreateContentView(int parentId) {
         getSupportActionBar().hide();
         View root = getLayoutInflater().inflate(R.layout.turtle_content, null);
-        root.findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        root.findViewById(R.id.back).setOnClickListener(v -> finish());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        root.findViewById(R.id.run).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (BleController.getInstance().isConnected()) {
-                    run();
-                } else {
-                    Toast.makeText(getBaseContext(), "请连接蓝牙", Toast.LENGTH_SHORT).show();
-                }
+        root.findViewById(R.id.run).setOnClickListener(v -> {
+            if (BleController.getInstance().isConnected()) {
+                run();
+            } else {
+                Toast.makeText(getBaseContext(), "请连接蓝牙", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -196,13 +186,10 @@ public class RobotBlocklyActivity extends AbstractBlocklyActivity {
         //获得实例
         mBleController = BleController.getInstance();
         // TODO 接收数据的监听
-        mBleController.RegistReciveListener(TAG, new OnReceiverCallback() {
-            @Override
-            public void onReceiver(byte[] value) {
-                Log.e("response", new String(value));
-                if (listener != null) {
-                    listener.onReceive(new String(value));
-                }
+        mBleController.RegistReciveListener(TAG, value -> {
+            Log.e("response", new String(value));
+            if (listener != null) {
+                listener.onReceive(new String(value));
             }
         });
 
@@ -212,12 +199,7 @@ public class RobotBlocklyActivity extends AbstractBlocklyActivity {
                 AlertDialog.Builder b = new AlertDialog.Builder(RobotBlocklyActivity.this);
                 b.setTitle("Alert");
                 b.setMessage(message);
-                b.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        result.confirm();
-                    }
-                });
+                b.setPositiveButton(android.R.string.ok, (dialog, which) -> result.confirm());
                 b.setCancelable(false);
                 b.create().show();
                 return true;
@@ -246,6 +228,7 @@ public class RobotBlocklyActivity extends AbstractBlocklyActivity {
     }
 
     public void Write(String value) {
+        Log.e(TAG, "send data：" + value);
         mBleController.WriteBuffer(value, new OnWriteCallback() {
             @Override
             public void onSuccess() {
