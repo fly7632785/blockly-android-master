@@ -4,6 +4,8 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import es.dmoral.toasty.Toasty;
+
 /**
  * created by jafir on 2018/4/14
  */
@@ -35,7 +37,7 @@ public class ToastUtils {
         if (TextUtils.isEmpty(string)) {
             return;
         }
-        Toast.makeText(mContext, string, Toast.LENGTH_SHORT).show();
+        Toasty.info(mContext, string,Toast.LENGTH_LONG,false).show();
     }
 
     public static void show(String string, int duration) {

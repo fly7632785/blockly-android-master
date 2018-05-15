@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.google.blockly.android.demo.R;
 import com.google.blockly.android.demo.bleutils.BleController;
@@ -37,18 +36,10 @@ public class RobotWelcomeActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.control:
-                if (BleController.getInstance().isConnected()) {
-                    RobotControlActivity.launch(this);
-                } else {
-                    Toast.makeText(this, "请连接蓝牙", Toast.LENGTH_SHORT).show();
-                }
+                RobotControlActivity.launch(this);
                 break;
             case R.id.create:
-//                if(BleController.getInstance().isConnected()) {
                 RobotBlocklyActivity.launch(this);
-//                }else {
-//                    Toast.makeText(this, "请连接蓝牙", Toast.LENGTH_SHORT).show();
-//                }
                 break;
             case R.id.bluetooth:
                 RobotBleConnectActivity.launch(this);
@@ -60,6 +51,6 @@ public class RobotWelcomeActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         // TODO 断开连接
-        BleController.getInstance().CloseBleConn();
+        BleController.getInstance().disConnectBleConn();
     }
 }

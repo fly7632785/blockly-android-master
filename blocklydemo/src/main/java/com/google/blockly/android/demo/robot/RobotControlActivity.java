@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -14,8 +15,8 @@ import android.widget.TextView;
 
 import com.google.blockly.android.demo.R;
 import com.google.blockly.android.demo.bleutils.BleController;
-import com.google.blockly.android.demo.bleutils.callback.OnReceiverCallback;
 import com.google.blockly.android.demo.bleutils.callback.OnWriteCallback;
+import com.google.blockly.android.demo.config.Config;
 import com.google.blockly.util.ToastUtils;
 
 import butterknife.BindView;
@@ -25,7 +26,7 @@ import butterknife.OnClick;
 /**
  * created by jafir on 2018/4/6
  */
-public class RobotControlActivity extends AppCompatActivity {
+public class RobotControlActivity extends AppCompatActivity implements View.OnTouchListener {
     private static final String TAG = "RobotControlActivity";
     private BleController mBleController;
     private long lastTime;
@@ -55,6 +56,69 @@ public class RobotControlActivity extends AppCompatActivity {
     View prevent;
 
 
+    @BindView(R.id.go)
+    View mGo;
+    @BindView(R.id.back)
+    View mBack;
+    @BindView(R.id.left)
+    View mLeft;
+    @BindView(R.id.right)
+    View mRight;
+    @BindView(R.id.stop)
+    View mStop;
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        //开始
+        if (!mBleController.isConnected()) {
+            RobotBleConnectActivity.launch(this);
+            return false;
+        }
+        if (event.getAction() == MotionEvent.ACTION_DOWN && System.currentTimeMillis() - lastTime < Config.sleepTime) {
+            return false;
+        }
+        lastTime = System.currentTimeMillis();
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            v.setPressed(true);
+            switch (v.getId()) {
+                case R.id.go:
+                    //todo 前进
+                    sendCommand(CommandConstant.GO);
+                    break;
+                case R.id.left:
+                    sendCommand(CommandConstant.LEFT);
+                    //todo 向左
+                    break;
+                case R.id.right:
+                    sendCommand(CommandConstant.RIGHT);
+                    //todo 向右
+                    break;
+                case R.id.back:
+                    sendCommand(CommandConstant.BACK);
+                    //todo 后退
+                    break;
+            }
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            v.setPressed(false);
+            sendCommand(CommandConstant.STOP);
+        }
+        return true;
+    }
+
+    @OnClick(R.id.stop)
+    public void onStopClick() {
+        //开始
+        if (!mBleController.isConnected()) {
+            RobotBleConnectActivity.launch(this);
+            return;
+        }
+        if (System.currentTimeMillis() - lastTime < Config.sleepTime) {
+            return;
+        }
+        lastTime = System.currentTimeMillis();
+        sendCommand(CommandConstant.STOP);
+    }
+
     enum Mode {
         Control,//控制
         Follow,//循迹
@@ -77,13 +141,13 @@ public class RobotControlActivity extends AppCompatActivity {
 
     private void initView() {
         mBleController = BleController.getInstance();
-        mBleController.RegistReciveListener(TAG, new OnReceiverCallback() {
-            @Override
-            public void onReceiver(byte[] value) {
-                Log.e("response", new String(value));
-            }
-        });
-        control.setSelected(true);
+        mBleController.RegistReciveListener(TAG, value -> Log.e("response", new String(value)));
+        controlLayout.setVisibility(View.GONE);
+        control(Mode.Follow);
+        mGo.setOnTouchListener(this);
+        mBack.setOnTouchListener(this);
+        mLeft.setOnTouchListener(this);
+        mRight.setOnTouchListener(this);
     }
 
     @OnClick(R.id.to_back)
@@ -115,9 +179,10 @@ public class RobotControlActivity extends AppCompatActivity {
             return;
         }
         this.mode = mode;
-        controlLayout.setVisibility(View.GONE);
+        startAndPause.setVisibility(View.VISIBLE);
         control.setSelected(false);
         xunji.setSelected(false);
+        controlLayout.setVisibility(View.GONE);
         hide.setSelected(false);
         prevent.setSelected(false);
         switch (mode) {
@@ -163,12 +228,16 @@ public class RobotControlActivity extends AppCompatActivity {
             return;
         }
         lastTime = System.currentTimeMillis();
+        //开始
+        if (!mBleController.isConnected()) {
+            RobotBleConnectActivity.launch(this);
+            return;
+        }
+
         if (mode != Mode.Control) {
             view.setSelected(!view.isSelected());
         }
-
         if (view.isSelected()) {
-            //开始
             switch (mode) {
                 case Follow:
                     //todo 循迹
@@ -218,64 +287,14 @@ public class RobotControlActivity extends AppCompatActivity {
                     Log.e("debug", "onFailed" + state);
                 }
             });
-        } else {
-            ToastUtils.show("已断开连接，请重新连接蓝牙设备");
         }
-        //设置 notify
+    }
 //
-//        Observable<RxBleConnection> connect =  MainApplication.getInstance().connectObserverable;
-//        connect = MainApplication.getInstance().bleDevice.establishConnection(false);
-//        connect.flatMap(rxBleConnection -> rxBleConnection.setupNotification(BleUUID.UUID_NOTIFY))
-//                .flatMap(notificationObservable -> notificationObservable) // <-- Notification has been set up, now observe value changes.
-//                .subscribe(
-//                        bytes -> {
-//                            // Given characteristic has been changes, here is the value.
-//                            Log.e("e", "返回" + HexUtil.bytesToHexString(bytes));
-//                        },
-//                        throwable -> {
-//                            // Handle an error here.
-//                            Log.e("e", "throwable" + throwable.getMessage());
-//                        }
-//                );
-//        connect
-//                .flatMapSingle(rxBleConnection -> rxBleConnection.writeCharacteristic(BleUUID.UUID_WRITE, HexUtil.hexStringToBytes(command)))
-//                .subscribe(
-//                        characteristicValue -> {
-//                            // Characteristic value confirmed.
-//                            Log.e("e", "写成功" + HexUtil.bytesToHexString(characteristicValue));
-//                        },
-//                        throwable -> {
-//                            Log.e("e", "throwable" + throwable.getMessage());
-//                        }
-//                );
-    }
-
-
-    @OnClick({R.id.go, R.id.left, R.id.stop, R.id.right, R.id.back})
-    public void contorllorClick(View v) {
-        switch (v.getId()) {
-            case R.id.go:
-                //todo 前进
-                sendCommand(CommandConstant.GO);
-                break;
-            case R.id.left:
-                sendCommand(CommandConstant.LEFT);
-                //todo 向左
-                break;
-            case R.id.right:
-                sendCommand(CommandConstant.RIGHT);
-                //todo 向右
-                break;
-            case R.id.stop:
-                sendCommand(CommandConstant.STOP);
-                //todo 停止
-                break;
-            case R.id.back:
-                sendCommand(CommandConstant.BACK);
-                //todo 后退
-                break;
-        }
-    }
+//    @OnTouch({R.id.go, R.id.left, R.id.stop, R.id.right, R.id.back})
+//    public boolean controlOnTouch(View v, MotionEvent event) {
+//
+//        return true;
+//    }
 
     @Override
     protected void onDestroy() {

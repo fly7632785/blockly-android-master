@@ -183,11 +183,6 @@
             >
 
         </activity>
-        <activity android:name=".robot.RobotRxBleConnectActivity"
-            android:screenOrientation="landscape"
-            >
-
-        </activity>
     </application>
 
 </manifest>

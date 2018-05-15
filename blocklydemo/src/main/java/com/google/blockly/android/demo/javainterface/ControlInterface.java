@@ -21,7 +21,7 @@ public class ControlInterface extends Object {
     @JavascriptInterface
     public synchronized void wait(final int time) {
         try {
-            Thread.sleep(time*1000);
+            Thread.sleep(time * 1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

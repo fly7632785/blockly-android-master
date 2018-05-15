@@ -11,6 +11,9 @@ public class CommandConstant {
     public final static String RIGHT = "D104FFFF";
     public final static String BACK = "D105FFFF";
 
+    public final static String CONTROL_START = "D106FFFF";
+    public final static String CONTROL_END = "D107FFFF";
+
     public final static String XUNJI_START = "D201FFFF";
     public final static String XUNJI_END = "D202FFFF";
 
@@ -25,6 +28,8 @@ public class CommandConstant {
     public final static String GOBACK = "F3%02d%sFF";
     public final static String ZHUANWAN = "F4%02d%sFF";
     public final static String MOVE_STOP = "F500FFFF";
+
+    public final static String Blockly_STOP = "F600FFFF";
 
 
     public final static String OPTION_XIAOLIAN = "E101FFFF";

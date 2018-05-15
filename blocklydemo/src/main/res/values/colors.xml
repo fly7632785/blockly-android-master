@@ -20,4 +20,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="styleDemoTextPrimary">#FF000080</color>
     <color name="demo_item_bg">#ffaaaaaa</color>
+    <color name="start_yellow_color">#FFBC00</color>
 </resources>

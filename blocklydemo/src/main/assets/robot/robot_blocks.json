@@ -165,6 +165,15 @@
     "helpUrl": ""
   },
   {
+    "type": "option_start",
+    "message0": "当开始被点击",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#FFCD4F",
+    "tooltip": "当开始被点击",
+    "helpUrl": ""
+  },
+  {
     "type": "move_go_back_time",
     "message0": "运动 %1 速度 %2 时长 %3 秒",
     "args0": [
@@ -186,8 +195,8 @@
         "type": "field_number",
         "name": "move_speed",
         "value": 100,
-        "min": 0,
-        "max": 100
+        "min": 100,
+        "max": 255
       },
       {
         "type": "field_number",
@@ -226,8 +235,8 @@
         "type": "field_number",
         "name": "move_speed",
         "value": 100,
-        "min": 1,
-        "max": 100
+        "min": 100,
+        "max": 255
       },
       {
         "type": "field_number",
@@ -266,8 +275,8 @@
         "type": "field_number",
         "name": "move_speed",
         "value": 100,
-        "min": 0,
-        "max": 100
+        "min": 100,
+        "max": 255
       }
     ],
     "inputsInline": true,
@@ -299,8 +308,8 @@
         "type": "field_number",
         "name": "move_speed",
         "value": 100,
-        "min": 0,
-        "max": 100
+        "min": 100,
+        "max": 255
       }
     ],
     "inputsInline": true,

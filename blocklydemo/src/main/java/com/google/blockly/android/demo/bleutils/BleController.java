@@ -13,7 +13,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.blockly.android.demo.bleutils.callback.BleDevceScanCallback;
 import com.google.blockly.android.demo.bleutils.callback.ConnectCallback;
@@ -21,6 +20,7 @@ import com.google.blockly.android.demo.bleutils.callback.OnReceiverCallback;
 import com.google.blockly.android.demo.bleutils.callback.OnWriteCallback;
 import com.google.blockly.android.demo.bleutils.callback.ScanCallback;
 import com.google.blockly.android.demo.bleutils.request.ReceiverRequestQueue;
+import com.google.blockly.util.ToastUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -56,7 +56,7 @@ public class BleController {
     private HashMap<String, Map<String, BluetoothGattCharacteristic>> servicesMap = new HashMap<>();
 
     //连接请求是否ok
-    private boolean isConnectok = false;
+    private boolean isConnectok;
     //是否是用户手动断开
     private boolean isMybreak = false;
     //连接结果的回调
@@ -80,6 +80,7 @@ public class BleController {
     public static final String UUID_READ = "3f3e3d3c-3b3a-3938-3736-353433323130";
     private boolean isConnected;
     private String connectedAdress;
+    private BluetoothDevice remoteDevice;
 
     public static synchronized BleController getInstance() {
         if (null == mBleController) {
@@ -89,6 +90,7 @@ public class BleController {
     }
 
     public boolean isConnected() {
+        //todo mock
         return isConnected;
     }
 
@@ -105,12 +107,14 @@ public class BleController {
             mContext = context.getApplicationContext();
             mBlehManager = (BluetoothManager) mContext.getSystemService(Context.BLUETOOTH_SERVICE);
             if (null == mBlehManager) {
-                Toast.makeText(mContext, "此手机没有发现蓝牙模块", Toast.LENGTH_SHORT).show();
+                ToastUtils.show("此手机没有发现蓝牙模块");
                 Log.e(TAG, "BluetoothManager init error!");
             }
 
             mBleAdapter = mBlehManager.getAdapter();
             if (mBleAdapter == null || !mBleAdapter.isEnabled()) {
+                ToastUtils.show("此手机没有发现蓝牙模块");
+                Log.e(TAG, "mBleAdapter init error!");
             }
 
             mGattCallback = new BleGattCallback();
@@ -181,12 +185,15 @@ public class BleController {
             Log.e(TAG, "No device found at this address：" + address);
             return;
         }
-        BluetoothDevice remoteDevice = mBleAdapter.getRemoteDevice(address);
+        remoteDevice = mBleAdapter.getRemoteDevice(address);
         if (remoteDevice == null) {
             Log.w(TAG, "Device not found.  Unable to connect.");
             return;
         }
         this.connectCallback = connectCallback;
+        if (mBleGatt != null) {
+            mBleGatt.disconnect();
+        }
         mBleGatt = remoteDevice.connectGatt(mContext, false, mGattCallback);
         Log.e(TAG, "connecting mac-address:" + address);
         delayConnectResponse(connectionTimeOut);
@@ -216,9 +223,7 @@ public class BleController {
             return;
         }
 
-        if (mBleGattCharacteristic == null) {
-            mBleGattCharacteristic = getBluetoothGattCharacteristic(UUID_SERVICE, UUID_WRITE);
-        }
+        mBleGattCharacteristic = getBluetoothGattCharacteristic(UUID_SERVICE, UUID_WRITE);
 
         if (null == mBleGattCharacteristic) {
             writeCallback.onFailed(OnWriteCallback.FAILED_INVALID_CHARACTER);
@@ -261,19 +266,6 @@ public class BleController {
         disConnection();
         isMybreak = true;
         isConnected = false;
-        mBleGattCharacteristic = null;
-        mBlehManager = null;
-    }
-
-    /**
-     * 手动断开Ble连接并关闭
-     */
-    public void CloseBleConn() {
-        disConnection();
-        isMybreak = true;
-        isConnected = false;
-        mBleGattCharacteristic = null;
-        mBlehManager = null;
     }
 
 
@@ -351,6 +343,7 @@ public class BleController {
                 Log.e(TAG, "断开连接");
                 isConnected = false;
                 connectedAdress = null;
+                mBleGatt.close();
                 if (!isMybreak) {
                     reConnect();
                 }

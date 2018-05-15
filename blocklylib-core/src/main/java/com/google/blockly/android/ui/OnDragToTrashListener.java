@@ -57,6 +57,9 @@ public class OnDragToTrashListener implements View.OnDragListener {
         // (this Activity) in order to trash it.
         PendingDrag drag = mClipHelper.getPendingDrag(event);
         Block rootBlock = drag == null ? null : drag.getRootDraggedBlock();
+        if(rootBlock != null &&rootBlock.getType().equals("option_start")){
+            return false;
+        }
         return rootBlock != null && rootBlock.isDeletable();
     }
 }

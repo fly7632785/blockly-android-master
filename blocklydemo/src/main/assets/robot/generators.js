@@ -51,6 +51,10 @@ Blockly.JavaScript['move_stop'] = function(block) {
 };
 
 
+Blockly.JavaScript['option_start'] = function(block) {
+  var code = 'option.command(\'option_start\');\n';
+  return code;
+};
 // 展示
 Blockly.JavaScript['option_xiaolian'] = function(block) {
   var code = 'option.command(\'option_xiaolian\');\n';

@@ -20,9 +20,9 @@
     <ImageView
         android:id="@+id/run"
         android:layout_width="70dp"
-        android:src="@mipmap/start_yellow_h"
+        android:background="@drawable/select_block_start"
         android:layout_gravity="right|bottom"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginRight="25dp"
         android:layout_height="70dp" />
 </FrameLayout>

@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.webkit.JavascriptInterface;
 
+import com.google.blockly.android.demo.config.Config;
 import com.google.blockly.android.demo.robot.CommandConstant;
 import com.google.blockly.android.demo.robot.RobotBlocklyActivity;
 
@@ -31,6 +32,23 @@ public class ShowInterface extends Object {
         Handler handler = new Handler(Looper.getMainLooper());
         System.out.println("thread" + Thread.currentThread().toString());
         final String command = getOptionCommand(msg);
+        if(command.equals("")){
+            return;
+        }
+        if(command.equals("end")){
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    activity.end();
+                }
+            });
+            return;
+        }
+        try {
+            Thread.sleep(Config.sleepTime);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -71,6 +89,8 @@ public class ShowInterface extends Object {
                 return CommandConstant.OPTION_CLOSE_AGB;
             case "option_close_dianzhen":
                 return CommandConstant.OPTION_CLOSE_DIANZHEN;
+            case "option_end":
+                return "end";
         }
         return "";
     }

@@ -28,7 +28,6 @@ import android.view.View;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.widget.Toast;
 
 import com.google.blockly.android.AbstractBlocklyActivity;
 import com.google.blockly.android.codegen.CodeGenerationRequest;
@@ -41,12 +40,21 @@ import com.google.blockly.android.demo.javainterface.MoveInterface;
 import com.google.blockly.android.demo.javainterface.ShowInterface;
 import com.google.blockly.model.DefaultBlocks;
 import com.google.blockly.util.JavascriptUtil;
+import com.google.blockly.util.ToastUtils;
+import com.google.blockly.utils.BlockLoadingException;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
 
 public class RobotBlocklyActivity extends AbstractBlocklyActivity {
+    private MoveInterface moveInterface;
+    private ShowInterface showInterface;
+    private ControlInterface controlInterface;
+    private long lastTime;
+    private View mRun;
+
     public static void launch(Context context) {
         context.startActivity(new Intent(context, RobotBlocklyActivity.class));
     }
@@ -55,6 +63,10 @@ public class RobotBlocklyActivity extends AbstractBlocklyActivity {
 
     private static final String SAVE_FILENAME = "turtle_workspace.xml";
     private static final String AUTOSAVE_FILENAME = "turtle_workspace_temp.xml";
+
+    public void end() {
+        mRun.setEnabled(true);
+    }
 
     public interface ReceiverListener {
         void onReceive(String s);
@@ -86,23 +98,29 @@ public class RobotBlocklyActivity extends AbstractBlocklyActivity {
             new CodeGenerationRequest.CodeGeneratorCallback() {
                 @Override
                 public void onFinishCodeGeneration(final String generatedCode) {
-                    // Sample callback.
-//                    int in = generatedCode.indexOf(" Turtle.penDown();");
-                    final String newStr = generatedCode;
-//                    final String newStr = generatedCode.substring(0,in)+ "  test.sleep(\"我要sleep你\");" + generatedCode.substring(in,generatedCode.length());
-//                    final String newStr = "var value = test.sleep(\"我要sleep你\");\n" +
-//                            "window.alert(value);\n" + generatedCode;
                     Log.e(TAG, "generatedCode:\n" + generatedCode);
-//                    Toast.makeText(getApplicationContext(), generatedCode,
-//                            Toast.LENGTH_LONG).show();
-                    mHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            String encoded = "Robot.execute("
-                                    + JavascriptUtil.makeJsString(newStr) + ")";
-                            mWebview.loadUrl("javascript:" + encoded);
+                    final String newStr = generatedCode;
+                    String strs[] = newStr.split("\n\n");
+                    if (strs == null || strs.length < 1) {
+                        return;
+                    }
+                    for (int i = 0; i < strs.length; i++) {
+                        if (strs[i].startsWith("option.command('option_start')")) {
+
+                            int finalI = i;
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    String encoded = "Robot.execute("
+                                            + JavascriptUtil.makeJsString(strs[finalI] + "option.command('option_end');") + ")";
+                                    Log.e(TAG, "generatedCode:\n  " + strs[finalI] + "option.command('option_end');");
+                                    Log.e(TAG, "encoded:\n  " +encoded);
+                                    mWebview.loadUrl("javascript:" + encoded);
+                                }
+                            });
+                            break;
                         }
-                    });
+                    }
                 }
             };
     private BleController mBleController;
@@ -110,6 +128,20 @@ public class RobotBlocklyActivity extends AbstractBlocklyActivity {
     @Override
     public void onLoadWorkspace() {
         mBlocklyActivityHelper.loadWorkspaceFromAppDirSafely(SAVE_FILENAME);
+    }
+
+    public void loadWorkPlace() {
+        BlocklyController controller = getController();
+        String filename = "";
+        filename = "robot.xml";
+
+        String assetFilename = "robot/" + filename;
+        try {
+            controller.loadWorkspaceContents(getAssets().open(assetFilename));
+        } catch (IOException | BlockLoadingException e) {
+            throw new IllegalStateException(
+                    "Couldn't load demo workspace from assets: " + assetFilename, e);
+        }
     }
 
     @Override
@@ -152,6 +184,7 @@ public class RobotBlocklyActivity extends AbstractBlocklyActivity {
 
     @Override
     protected void onInitBlankWorkspace() {
+        loadWorkPlace();
         addDefaultVariables(getController());
     }
 
@@ -162,12 +195,14 @@ public class RobotBlocklyActivity extends AbstractBlocklyActivity {
         View root = getLayoutInflater().inflate(R.layout.turtle_content, null);
         root.findViewById(R.id.back).setOnClickListener(v -> finish());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        root.findViewById(R.id.run).setOnClickListener(v -> {
-            if (BleController.getInstance().isConnected()) {
-                run();
-            } else {
-                Toast.makeText(getBaseContext(), "请连接蓝牙", Toast.LENGTH_SHORT).show();
+        mRun = root.findViewById(R.id.run);
+        mRun.setOnClickListener(v -> {
+            if (!BleController.getInstance().isConnected()) {
+                RobotBleConnectActivity.launch(this);
+                return;
             }
+            v.setEnabled(false);
+            run();
         });
 
         mWebview = (WebView) root.findViewById(R.id.turtle_runtime);
@@ -179,9 +214,12 @@ public class RobotBlocklyActivity extends AbstractBlocklyActivity {
         mWebview.loadUrl("file:///android_asset/robot/empty.html");
         //参数1：Javascript对象名
         //参数2：Java对象名
-        mWebview.addJavascriptInterface(new MoveInterface(this), "move");
-        mWebview.addJavascriptInterface(new ShowInterface(this), "option");
-        mWebview.addJavascriptInterface(new ControlInterface(this), "control");
+        moveInterface = new MoveInterface(this);
+        showInterface = new ShowInterface(this);
+        controlInterface = new ControlInterface(this);
+        mWebview.addJavascriptInterface(moveInterface, "move");
+        mWebview.addJavascriptInterface(showInterface, "option");
+        mWebview.addJavascriptInterface(controlInterface, "control");
         System.out.println("thread" + Thread.currentThread().toString());
         //获得实例
         mBleController = BleController.getInstance();
@@ -229,15 +267,17 @@ public class RobotBlocklyActivity extends AbstractBlocklyActivity {
 
     public void Write(String value) {
         Log.e(TAG, "send data：" + value);
+        Log.e("pause", String.valueOf(System.currentTimeMillis() - lastTime));
+        lastTime = System.currentTimeMillis();
         mBleController.WriteBuffer(value, new OnWriteCallback() {
             @Override
             public void onSuccess() {
-//                Toast.makeText(RobotBlocklyActivity.this, "发送成功", Toast.LENGTH_SHORT).show();
+//               ToastUtils.show("发送成功");
             }
 
             @Override
             public void onFailed(int state) {
-                Toast.makeText(RobotBlocklyActivity.this, "发送失败", Toast.LENGTH_SHORT).show();
+                ToastUtils.show("发送失败");
             }
         });
     }

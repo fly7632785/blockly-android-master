@@ -16,11 +16,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.blockly.android.demo.R;
@@ -131,9 +131,9 @@ public class RobotBleConnectActivity extends AppCompatActivity {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 scanDevices(true);
-                Toast.makeText(this, "位置权限已开启", Toast.LENGTH_SHORT).show();
+                ToastUtils.show("位置权限已开启");
             } else {
-                Toast.makeText(this, "未开启位置权限", Toast.LENGTH_SHORT).show();
+                ToastUtils.show("未开启位置权限");
                 finish();
             }
         } else {
@@ -149,10 +149,10 @@ public class RobotBleConnectActivity extends AppCompatActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 final BluetoothDevice device = (BluetoothDevice) adapter.getData().get(position);
-                if (mBleController.isConnected()) {
-                    ToastUtils.show("已连接");
-                    return;
-                }
+//                if (mBleController.isConnected()) {
+//                    ToastUtils.show("已连接");
+//                    return;
+//                }
                 showProgressDialog("请稍候!", "正在连接...");
                 if (device == null)
                     return;
@@ -163,7 +163,7 @@ public class RobotBleConnectActivity extends AppCompatActivity {
                     public void onConnSuccess() {
                         hideProgressDialog();
                         //todo
-                        Toast.makeText(RobotBleConnectActivity.this, "连接成功", Toast.LENGTH_SHORT).show();
+                        ToastUtils.show("连接成功");
                         adapter.notifyDataSetChanged();
 //                        finish();
                     }
@@ -171,7 +171,7 @@ public class RobotBleConnectActivity extends AppCompatActivity {
                     @Override
                     public void onConnFailed() {
                         hideProgressDialog();
-                        Toast.makeText(RobotBleConnectActivity.this, "连接断开或连接失败", Toast.LENGTH_SHORT).show();
+                        ToastUtils.show("连接断开或连接失败");
                     }
                 });
             }
@@ -223,7 +223,9 @@ public class RobotBleConnectActivity extends AppCompatActivity {
 
             @Override
             public void onScanning(BluetoothDevice device, int rssi, byte[] scanRecord) {
-                if (!adapter.getData().contains(device)) {
+                if (!adapter.getData().contains(device)
+                        && (!TextUtils.isEmpty(device.getName())
+                        && (device.getName().startsWith("ST") || device.getName().startsWith("B")))) {
                     adapter.getData().add(device);
                     adapter.notifyDataSetChanged();
                 }

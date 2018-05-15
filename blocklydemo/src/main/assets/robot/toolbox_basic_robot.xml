@@ -30,8 +30,8 @@
         <block type="option_xiangxia"></block>
         <block type="option_xiangzuo"></block>
         <block type="option_xiangyou"></block>
-        <block type="option_close_rgb"></block>
         <block type="option_close_dianzhen"></block>
+        <block type="option_close_rgb"></block>
 
         <block type="option_huangse"></block>
         <block type="option_lanse"></block>
