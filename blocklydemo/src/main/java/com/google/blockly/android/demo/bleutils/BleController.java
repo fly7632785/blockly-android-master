@@ -73,10 +73,10 @@ public class BleController {
     //此属性一般不用修改
     private static final String BLUETOOTH_NOTIFY_D = "00002902-0000-1000-8000-00805f9b34fb";
     //TODO 以下uuid根据公司硬件改变
-    public static final String UUID_SERVICE = "0000fee0-0000-1000-8000-00805f9b34fb";
+    public static final String UUID_SERVICE = "0000ffe0-0000-1000-8000-00805f9b34fb";
     public static final String UUID_INDICATE = "0000000-0000-0000-8000-00805f9b0000";
-    public static final String UUID_NOTIFY = "0000fee1-0000-1000-8000-00805f9b34fb";
-    public static final String UUID_WRITE = "0000fee2-0000-1000-8000-00805f9b34fb";
+    public static final String UUID_NOTIFY = "0000ffe1-0000-1000-8000-00805f9b34fb";
+    public static final String UUID_WRITE = "0000ffe1-0000-1000-8000-00805f9b34fb";
     public static final String UUID_READ = "3f3e3d3c-3b3a-3938-3736-353433323130";
     private boolean isConnected;
     private String connectedAdress;
@@ -362,6 +362,7 @@ public class BleController {
                     HashMap<String, BluetoothGattCharacteristic> charMap = new HashMap<>();
                     BluetoothGattService bluetoothGattService = services.get(i);
                     String serviceUuid = bluetoothGattService.getUuid().toString();
+                    Log.e(TAG, "serviceUuid:"+serviceUuid);
                     List<BluetoothGattCharacteristic> characteristics = bluetoothGattService.getCharacteristics();
                     for (int j = 0; j < characteristics.size(); j++) {
                         charMap.put(characteristics.get(j).getUuid().toString(), characteristics.get(j));

@@ -5,11 +5,21 @@ package com.google.blockly.android.demo.robot;
  */
 public class CommandConstant {
 
+//    public final static String GO = "1";
+//    public final static String LEFT = "3";
+//    public final static String STOP = "0";
+//    public final static String RIGHT = "4";
+//    public final static String BACK = "2";
     public final static String GO = "D101FFFF";
-    public final static String LEFT = "D102FFFF";
-    public final static String STOP = "D103FFFF";
+    public final static String BACK = "D102FFFF";
+    public final static String LEFT = "D103FFFF";
     public final static String RIGHT = "D104FFFF";
-    public final static String BACK = "D105FFFF";
+    public final static String STOP = "D105FFFF";
+
+    public final static String LEFT_GO = "D111FFFF";
+    public final static String LEFT_BACK = "D112FFFF";
+    public final static String RIGHT_GO = "D113FFFF";
+    public final static String RIGHT_BACK = "D114FFFF";
 
     public final static String CONTROL_START = "D106FFFF";
     public final static String CONTROL_END = "D107FFFF";

@@ -18,6 +18,7 @@ import com.google.blockly.android.demo.bleutils.BleController;
 import com.google.blockly.android.demo.bleutils.callback.OnWriteCallback;
 import com.google.blockly.android.demo.config.Config;
 import com.google.blockly.util.ToastUtils;
+import com.kongqw.rockerlibrary.view.RockerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +40,9 @@ public class RobotControlActivity extends AppCompatActivity implements View.OnTo
     ImageView imageView;
     @BindView(R.id.layout_control)
     View controlLayout;
+
+    @BindView(R.id.rockerView)
+    RockerView rockerView;
 
     @BindView(R.id.start_and_pause)
     ImageView startAndPause;
@@ -148,6 +152,49 @@ public class RobotControlActivity extends AppCompatActivity implements View.OnTo
         mBack.setOnTouchListener(this);
         mLeft.setOnTouchListener(this);
         mRight.setOnTouchListener(this);
+
+        rockerView.setCallBackMode(RockerView.CallBackMode.CALL_BACK_MODE_STATE_CHANGE);
+        rockerView.setOnShakeListener(RockerView.DirectionMode.DIRECTION_8, new RockerView.OnShakeListener() {
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void direction(RockerView.Direction direction) {
+                switch (direction){
+                    case DIRECTION_UP:
+                        sendCommand(CommandConstant.GO);
+                        break;
+                    case DIRECTION_DOWN:
+                        sendCommand(CommandConstant.BACK);
+                        break;
+                    case DIRECTION_LEFT:
+                        sendCommand(CommandConstant.LEFT);
+                        break;
+                    case DIRECTION_RIGHT:
+                        sendCommand(CommandConstant.RIGHT);
+                        break;
+                    case DIRECTION_UP_LEFT:
+                        sendCommand(CommandConstant.LEFT_GO);
+                        break;
+                    case DIRECTION_DOWN_LEFT:
+                        sendCommand(CommandConstant.LEFT_BACK);
+                        break;
+                    case DIRECTION_UP_RIGHT:
+                        sendCommand(CommandConstant.RIGHT_GO);
+                        break;
+                    case DIRECTION_DOWN_RIGHT:
+                        sendCommand(CommandConstant.RIGHT_BACK);
+                        break;
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                sendCommand(CommandConstant.STOP);
+            }
+        });
     }
 
     @OnClick(R.id.to_back)
@@ -191,6 +238,7 @@ public class RobotControlActivity extends AppCompatActivity implements View.OnTo
                 imageView.setVisibility(View.GONE);
                 introduce.setVisibility(View.GONE);
                 controlLayout.setVisibility(View.VISIBLE);
+                rockerView.setVisibility(View.GONE);
                 startAndPause.setImageResource(R.drawable.select_start_pause_yellow);
                 break;
             case Follow:
@@ -212,9 +260,11 @@ public class RobotControlActivity extends AppCompatActivity implements View.OnTo
             case Prevent:
                 prevent.setSelected(true);
                 imageView.setImageResource(R.mipmap.fangdieluo);
-                imageView.setVisibility(View.VISIBLE);
-                introduce.setVisibility(View.VISIBLE);
-                introduce.setText("防跌落");
+                imageView.setVisibility(View.GONE);
+                introduce.setVisibility(View.GONE);
+                controlLayout.setVisibility(View.GONE);
+                rockerView.setVisibility(View.VISIBLE);
+                introduce.setText("摇杆");
                 startAndPause.setImageResource(R.drawable.select_start_pause_green);
                 break;
         }
@@ -234,7 +284,7 @@ public class RobotControlActivity extends AppCompatActivity implements View.OnTo
             return;
         }
 
-        if (mode != Mode.Control) {
+        if (mode != Mode.Control && mode != Mode.Prevent) {
             view.setSelected(!view.isSelected());
         }
         if (view.isSelected()) {
@@ -247,10 +297,10 @@ public class RobotControlActivity extends AppCompatActivity implements View.OnTo
                     //todo 避障
                     sendCommand(CommandConstant.BIZHANG_START);
                     break;
-                case Prevent:
-                    sendCommand(CommandConstant.FANGDIELUO_START);
-                    //todo 防跌落
-                    break;
+//                case Prevent:
+//                    sendCommand(CommandConstant.FANGDIELUO_START);
+//                    //todo 防跌落
+//                    break;
             }
         } else {
             //暂停
@@ -263,10 +313,10 @@ public class RobotControlActivity extends AppCompatActivity implements View.OnTo
                     //todo 避障
                     sendCommand(CommandConstant.BIZHANG_END);
                     break;
-                case Prevent:
-                    sendCommand(CommandConstant.FANGDIELUO_END);
-                    //todo 防跌落
-                    break;
+//                case Prevent:
+//                    sendCommand(CommandConstant.FANGDIELUO_END);
+//                    //todo 防跌落
+//                    break;
             }
         }
     }

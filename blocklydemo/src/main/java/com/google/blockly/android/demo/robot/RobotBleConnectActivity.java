@@ -225,7 +225,8 @@ public class RobotBleConnectActivity extends AppCompatActivity {
             public void onScanning(BluetoothDevice device, int rssi, byte[] scanRecord) {
                 if (!adapter.getData().contains(device)
                         && (!TextUtils.isEmpty(device.getName())
-                        && (device.getName().startsWith("ST") || device.getName().startsWith("B")))) {
+//                        && (device.getName().startsWith("ST") || device.getName().startsWith("B")))) {
+                        )) {
                     adapter.getData().add(device);
                     adapter.notifyDataSetChanged();
                 }
