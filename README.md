@@ -47,7 +47,7 @@ Want to contribute? Great! First, read [our guidelines for contributors][7].
 <img src="shot/ble_control.png" width="40%"/>  <img src="shot/ble_xunji.png" width="40%"/>
 <img src="shot/ble_blockly_yundong.png" width="40%"/>  <img src="shot/ble_blockly_show.png" width="40%"/>
 <img src="shot/ble_blockly_zhixing.png" width="40%"/>
-<img src=”https://upload-images.jianshu.io/upload_images/1311457-a2379e3555667921.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000“ width = "40%"/>
+<img src="https://upload-images.jianshu.io/upload_images/1311457-a2379e3555667921.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000"/>
 
 ##### 实现原理
 1、蓝牙连接，ble蓝牙连接及其通信，主要在bleutils包下面，其他界面相关实现在robot包下
